@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="theme-color" content="#1f1f1f" />
+  <link rel="stylesheet" href="style.css" />
+  <title>Finance Tracker</title>
+</head>
+<body>
+  <header>
+    <h1>Finance Tracker</h1>
+    <p id="balance"></p>
+  </header>
+
+  <main id="transactionList"></main>
+
+  <button id="addBtn">+</button>
+
+  <div id="addModal" class="modal hidden">
+    <div class="modal-content">
+      <h2>Add Transaction</h2>
+      <input type="text" id="descInput" placeholder="Description" />
+      <input type="number" id="amountInput" placeholder="Amount (+/-)" />
+      <button id="scanBtn">Scan Receipt</button>
+      <button onclick="saveTransaction()">Save</button>
+      <button onclick="closeModal()">Cancel</button>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@2.1.5/dist/tesseract.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
