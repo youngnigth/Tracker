@@ -75,9 +75,16 @@ function startLiveCameraOCR() {
 
         Tesseract.recognize(imgData, 'eng').then(({ data: { text } }) => {
           const found = text.match(/\$?\d+(\.\d{2})?/g);
+          const textLower = text.toLowerCase();
+          let isIncome = /income|received|deposit|payment from/.test(textLower);
+          let isExpense = /total|due|amount due|subtotal|paid|amount to pay/.test(textLower);
+
           if (found) {
-            document.getElementById("amountInput").value = found[0].replace('$', '');
-            alert("Detected amount: " + found[0]);
+            let value = parseFloat(found[0].replace('$', ''));
+            if (isExpense) value = -Math.abs(value);
+            if (isIncome) value = Math.abs(value);
+            document.getElementById("amountInput").value = value;
+            alert("Detected amount: " + value);
           } else {
             alert("No amount found.");
           }
@@ -96,7 +103,7 @@ function stopCamera() {
   const video = document.querySelector(".modal-content video");
   if (video) video.remove();
   const btn = document.querySelector(".modal-content button:last-child");
-  if (btn.innerText === "Capture & Scan") btn.remove();
+  if (btn && btn.innerText === "Capture & Scan") btn.remove();
 }
 
 document.getElementById("scanBtn").addEventListener("click", startLiveCameraOCR);
