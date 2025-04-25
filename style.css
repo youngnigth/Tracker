@@ -62,3 +62,10 @@ button {
 .hidden {
   display: none;
 }
+#categoryInput {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 0.375rem;
+  margin-bottom: 1rem;
+}
